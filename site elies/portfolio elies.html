@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Elies TERKI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #2563eb;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #2563eb, #06b6d4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Navigation active state */
+        .nav-link.active {
+            color: #2563eb !important;
+        }
+
+        .nav-link.active::after {
+            width: 100% !important;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 100px 20px 50px;
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1f2937;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #2563eb, #06b6d4);
+            border-radius: 2px;
+        }
+
+        /* Home Section */
+        #accueil {
+            background: 
+                linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%),
+                url('images/Elies TERKI.jpg') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        #accueil::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            z-index: 1;
+        }
+
+        #accueil .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #06b6d4, #3b82f6);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-report {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .btn-report:hover {
+            background: linear-gradient(45deg, #059669, #047857);
+        }
+
+        /* Experience Section */
+        .experience-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #2563eb;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .experience-card h3 {
+            color: #2563eb;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-date {
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Formations Section */
+        .formation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #06b6d4;
+            transition: transform 0.3s ease;
+        }
+
+        .formation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .formation-card h3 {
+            color: #06b6d4;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .formation-date {
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .formation-status {
+            display: inline-block;
+            background: linear-gradient(45deg, #06b6d4, #3b82f6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Section */
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-item:nth-child(even) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .project-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .project-image {
+            position: relative;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .project-content h3 {
+            color: #2563eb;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .skills-section {
+            margin-bottom: 3rem;
+        }
+
+        .skills-section-title {
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .skills-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #2563eb, #06b6d4);
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid;
+            border-image: linear-gradient(45deg, #2563eb, #06b6d4) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-category h3 {
+            color: #2563eb;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .skill-category h3 {
+            color: #2563eb;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(45deg, #2563eb, #06b6d4);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Interests Section */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .interest-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .interest-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .interest-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #f8fafc;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: #f8fafc;
+            transition: background 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #e0f2fe;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2563eb, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* Video Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .close {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            color: #333;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background: #f3f4f6;
+            transform: scale(1.1);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .image-modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* PDF Modal */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .pdf-modal-content {
+            position: relative;
+            margin: 2% auto;
+            width: 90%;
+            height: 90%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pdf-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pdf-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #333;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pdf-close:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .image-modal-caption {
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .image-close {
+            position: absolute;
+            top: -50px;
+            right: -20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .image-close:hover {
+            color: #2563eb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-circle {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-item,
+            .project-item:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#accueil" onclick="showSection('accueil'); return false;" class="logo">MON PORTFOLIO</a>
+            <ul class="nav-menu">
+                <li><a href="#accueil" onclick="showSection('accueil'); return false;" class="nav-link active">Accueil</a></li>
+                <li><a href="#experiences" onclick="showSection('experiences'); return false;" class="nav-link">Expériences</a></li>
+                <li><a href="#formations" onclick="showSection('formations'); return false;" class="nav-link">Formations</a></li>
+                <li><a href="#projets" onclick="showSection('projets'); return false;" class="nav-link">Projets</a></li>
+                <li><a href="#competences" onclick="showSection('competences'); return false;" class="nav-link">Compétences</a></li>
+                <li><a href="#interets" onclick="showSection('interets'); return false;" class="nav-link">Centres d'intérêt</a></li>
+                <li><a href="#contact" onclick="showSection('contact'); return false;" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Accueil Section -->
+    <section id="accueil" class="section active">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-container">
+                    <div class="profile-circle">
+                        <img src="images/elies tete.png" alt="Photo de profil - Elies TERKI" class="profile-photo">
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h1>Elies TERKI</h1>
+                    <p>Bienvenue sur mon portfolio. Je m'appelle Elies TERKI, passionné par l'électricité, l'automatisme et les systèmes embarqués. Ce site a pour objectif de présenter mon parcours, mes expériences professionnelles et mes projets académiques. À travers ce portfolio, je souhaite mettre en valeur les compétences techniques et humaines que j'ai développées au fil de mes études et de mon alternance. Vous y trouverez mon CV, mon CV vidéo ainsi qu'un aperçu concret de mon évolution vers le métier d'ingénieur en Électricité, Instrumentation et Automatisme.</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary" onclick="openPdfModal('images/Terki-CV.pdf')">📄 CV PDF</a>
+                        <a href="#" class="btn btn-secondary" onclick="openVideo()">🎥 CV Vidéo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expériences Section -->
+    <section id="experiences" class="section">
+        <div class="container">
+            <h2 class="section-title">Expériences Professionnelles</h2>
+            <div class="experience-card">
+                <h3>Dessinateur électrique en bureau d'études</h3>
+                <div class="experience-date">3 ans en alternance (2023-2025) - Bureau d'étude EPI</div>
+                <p>• Réalisation et mise à jour de schémas électriques sur logiciels spécialisés (SEE Electrical, AutoCAD, EPLAN)</p>
+                <p>• Conception d'armoires électriques et participation à l'étude de faisabilité des projets</p>
+                <p>• Suivi de chantiers et assistance aux équipes techniques</p>
+                <p>• Contribution à des projets industriels variés : automatisation de procédés, systèmes de distribution électrique, mise en conformité</p>
+                <p><strong>Cette expérience longue m'a permis de développer une vision globale des projets, de la conception à la réalisation, ainsi qu'une autonomie dans le travail en bureau d'études.</strong></p>
+                <a href="#" class="btn btn-report" onclick="openPdfModal('images/TERKI.RAPPORT.pdf')">📄 Voir le rapport de stage</a>
+            </div>
+            <div class="experience-card">
+                <h3>Futur poste chez Natran – Ingénieur EIA</h3>
+                <div class="experience-date">En alternance - Électricité, Instrumentation, Automatisme - Prise de poste prévue à la rentrée</div>
+                <p>• Missions principales : études de faisabilité technique dans le domaine de l'électricité et de l'automatisme industriel</p>
+                <p>• Objectif : apporter une expertise sur l'optimisation énergétique, l'intégration de solutions instrumentées et le pilotage de projets techniques</p>
+                <p><strong>Poursuite de ma formation d'ingénieur en alternance avec une nouvelle entreprise spécialisée dans les systèmes industriels.</strong></p>
+            </div>
+            <div class="experience-card">
+                <h3>Animateur BAFA</h3>
+                <div class="experience-date">2021-2023 - Athis-Mons</div>
+                <p>• Encadrement d'enfants âgés de 3 à 10 ans</p>
+                <p>• Aide aux devoirs</p>
+                <p>• Création d'activités manuelles et sportives</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formations Section -->
+    <section id="formations" class="section">
+        <div class="container">
+            <h2 class="section-title">Formations</h2>
+            
+            <div class="formation-card">
+                <h3>Formation Ingénieur CESI – Systèmes Embarqués</h3>
+                <div class="formation-date">2025 – 2028</div>
+                <div class="formation-status">En alternance</div>
+                <p>Études de conception et développement de systèmes embarqués, incluant électronique, programmation C/C++, communication entre dispositifs, mécatronique et gestion de projets techniques.</p>
+            </div>
+
+            <div class="formation-card">
+                <h3>B.U.T. Génie Électrique et Informatique Industrielle</h3>
+                <div class="formation-date">2022 – 2025</div>
+                <div class="formation-status">En alternance</div>
+                <p>Compétences en électricité, automatisme et systèmes embarqués, avec pratique de la programmation, du dessin technique et de l'étude de projets industriels.</p>
+            </div>
+
+            <div class="formation-card">
+                <h3>Bac S – Option Sciences de l'Ingénieur</h3>
+                <div class="formation-date">2020</div>
+                <div class="formation-status">Obtenu</div>
+                <p>Formation scientifique générale avec spécialisation en sciences de l'ingénieur, développement des compétences en analyse, conception et modélisation de systèmes techniques.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets Section -->
+    <section id="projets" class="section">
+        <div class="container">
+            <h2 class="section-title">Projets</h2>
+            
+            <div class="project-item">
+                <div class="project-image">
+                    <img src="images/robot-suiveur.jpg" alt="Robot suiveur de ligne Arduino" onclick="openImageModal(this.src, this.alt)">
+                    <div class="click-hint">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="project-content">
+                    <h3>Robot suiveur de ligne (Arduino)</h3>
+                    <p>• Développement d'un robot autonome équipé de capteurs infrarouges</p>
+                    <p>• Programmation sur Arduino en langage C pour la gestion du suivi de trajectoire</p>
+                    <p>• Travail en équipe : organisation du projet, gestion des contraintes techniques et tests de validation</p>
+                    <p>• Projet axé sur la mise en pratique des bases en électronique et systèmes embarqués</p>
+                </div>
+            </div>
+
+
+
+            <div class="project-item">
+                <div class="project-image">
+                    <img src="images/armoire-electrique.jpg" alt="Armoire électrique système de pompe industrielle" onclick="openImageModal(this.src, this.alt)">
+                    <div class="click-hint">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="project-content">
+                    <h3>Armoire électrique – système de pompe industrielle</h3>
+                    <p>• Étude et conception d'une armoire électrique simulant le fonctionnement d'une station de pompage</p>
+                    <p>• Dimensionnement des protections, câblage des équipements et intégration d'un automate programmable pour la régulation</p>
+                    <p>• Objectif : simuler des scénarios réels de démarrage/arrêt et de protection d'un système industriel</p>
+                    <p>• Ce projet m'a permis d'appliquer mes compétences en électrotechnique, en automatisme et en gestion de l'énergie</p>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3>Skate électrique</h3>
+                    <p>• Conception d'un skateboard motorisé dans le cadre d'un projet d'innovation</p>
+                    <p>• Étude des besoins énergétiques, calcul de la puissance nécessaire et choix des composants (batterie, moteur, variateur)</p>
+                    <p>• Réalisation de la partie électronique et intégration des commandes</p>
+                    <p>• Ce projet a développé ma créativité, mon sens pratique et mon esprit d'innovation autour de la mobilité électrique</p>
+                </div>
+                <div class="project-image">
+                    <img src="images/skate-electrique.jfif" alt="Skate électrique motorisé" onclick="openImageModal(this.src, this.alt)">
+                    <div class="click-hint">🔍 Cliquer pour agrandir</div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-image">
+                    <img src="images/poster-scientifique.jpg" alt="Poster scientifique - Robot suiveur de ligne avec capteur ultrason" onclick="openImageModal(this.src, this.alt)">
+                    <div class="click-hint">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="project-content">
+                    <h3>📌 Poster – Robot suiveur de ligne avec capteur ultrason</h3>
+                    <p>• <strong>Conception :</strong> Robot suiveur de ligne à capteurs infrarouges</p>
+                    <p>• <strong>Innovation :</strong> Intégration d'un capteur ultrason HC-SR04 pour détecter les obstacles</p>
+                    <p>• <strong>Principe technique :</strong> Émission d'ondes sonores, calcul de la distance par temps aller-retour</p>
+                    <p>• <strong>Spécifications :</strong> Portée 2 cm à 4 m – Précision ±0,3 cm – Alimentation 5 V</p>
+                    <p>• <strong>Programmation Arduino :</strong> Mesure toutes les 100 ms, arrêt ou déviation si obstacle < 20 cm</p>
+                    <p>• <strong>Résultats :</strong> Détection fiable jusqu'à 2 m, limites sur surfaces inclinées/absorbantes</p>
+                    <p>• <strong>Améliorations possibles :</strong> Capteurs latéraux, balayage sur servomoteur, remplacement par LIDAR</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compétences Section -->
+    <section id="competences" class="section">
+        <div class="container">
+            <h2 class="section-title">Compétences</h2>
+            <div class="skills-container">
+                <!-- Section Compétences Professionnelles -->
+                <div class="skills-section">
+                    <h2 class="skills-section-title">Compétences Professionnelles</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3>🔧 Logiciels de Conception</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>SEE Electrical</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>AutoCAD</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>EPLAN</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>📋 Gestion & Management</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Gestion de projet technique</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 82%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Suivi de chantiers</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Travail en équipe</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Compétences Techniques -->
+                <div class="skills-section">
+                    <h2 class="skills-section-title">Compétences Techniques (BUT GEII)</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3>⚡ Électricité & Électrotechnique</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Dimensionnement électrique</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Distribution électrique</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Protection électrique</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>🤖 Automatisme & Régulation</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>API (Automates)</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 82%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Supervision SCADA</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Grafcet</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Régulation PID</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>💻 Électronique & Systèmes Embarqués</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Programmation C/C++</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Arduino</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Microcontrôleurs</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Systèmes temps réel</span>
+                                    <span>70%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>🌐 Communication Industrielle</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>CAN Bus</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 72%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Modbus RTU/TCP</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>SPI</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>I²C</span>
+                                    <span>73%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 73%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>🔋 Maîtrise de l'Énergie</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Installations basse tension</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Variateurs de vitesse</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Énergies renouvelables</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 72%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Efficacité énergétique</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 78%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>🌍 Langues & Communication</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Anglais B2 (TOEIC 835)</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Communication technique</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">
+                                    <span>Rédaction de rapports</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Centres d'intérêt Section -->
+    <section id="interets" class="section">
+        <div class="container">
+            <h2 class="section-title">Centres d'intérêt</h2>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">🏋️‍♂️</div>
+                    <h3>Sport</h3>
+                    <p>Musculation, basket, boxe thaï - Ces disciplines m'apportent discipline, rigueur, esprit d'équipe et dépassement de soi. Elles me permettent de maintenir un équilibre physique et mental essentiel dans ma vie professionnelle.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">✈️</div>
+                    <h3>Voyages</h3>
+                    <p>En particulier la Thaïlande, qui m'a sensibilisé à la découverte de nouvelles cultures, à l'ouverture d'esprit et à l'adaptation dans des environnements différents. Ces expériences enrichissent ma vision du monde et ma capacité d'adaptation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3>Envoyez-moi un message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>Informations de contact</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:elies.terki@gmail.com">elies.terki@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <a href="tel:0626963939">06 26 96 39 39</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Localisation</h4>
+                            <span>Athis-Mons, 91200</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentSection = 0;
+        const sections = document.querySelectorAll('.section');
+        
+        // Navigation smooth scroll
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Gestionnaire pour les liens de navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenu.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Intersection Observer pour l'animation des sections
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        // Animation des barres de compétences
+                        if (entry.target.id === 'competences') {
+                            animateSkillBars();
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observer toutes les sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Charger l'image de profil
+            loadProfileImage();
+        });
+
+        // Animation des barres de compétences
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }, index * 200);
+            });
+        }
+
+
+
+        // Fonction pour ouvrir la vidéo
+        function openVideo() {
+            const modal = document.getElementById('videoModal');
+            const iframe = modal.querySelector('iframe');
+            
+            // URL directe de votre vidéo YouTube CV
+            const embedUrl = 'https://www.youtube.com/embed/7W67uqcGBzo?rel=0&modestbranding=1';
+            
+            iframe.src = embedUrl;
+            modal.style.display = 'block';
+        }
+
+        // Fermer la modal vidéo
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('videoModal');
+            const closeBtn = document.querySelector('.close');
+            
+            if (e.target === modal || e.target === closeBtn) {
+                modal.style.display = 'none';
+                const iframe = modal.querySelector('iframe');
+                iframe.src = '';
+            }
+        });
+
+        // Charger l'image de profil (remplacer par votre vraie image)
+        function loadProfileImage() {
+            const profileImg = document.getElementById('profileImg');
+            // Ici vous devrez remplacer par l'URL de votre vraie photo
+            // Pour l'instant, on utilise une image placeholder
+            profileImg.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEyMCIgcj0iNDAiIGZpbGw9IiM2QjcyODAiLz4KPHBhdGggZD0iTTEwMCAyNDBIMjAwQzIwMCAyMTAgMTgwIDE4MCAxNTAgMTgwQzEyMCAxODAgMTAwIDIxMCAxMDAgMjQwWiIgZmlsbD0iIzZCNzI4MCIvPgo8dGV4dCB4PSIxNTAiIHk9IjI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzZCNzI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5QaG90byBkZSBwcm9maWw8L3RleHQ+Cjwvc3ZnPgo=';
+        }
+
+        // Gestion du formulaire de contact
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.querySelector('#contact form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Message envoyé ! (Fonctionnalité à implémenter côté serveur)');
+                });
+            }
+        });
+
+        // Effet de parallaxe léger sur scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('#accueil');
+            const speed = scrolled * 0.5;
+            
+            if (parallax) {
+                parallax.style.backgroundPosition = `center ${speed}px`;
+            }
+        });
+
+        // Fonctions pour la modal d'images
+        function openImageModal(imageSrc, imageAlt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('imageCaption');
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            caption.textContent = imageAlt;
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Fermer la modal en cliquant à l'extérieur
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeImageModal();
+            }
+        });
+
+        // Fermer les modals avec la touche Échap
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+                closePdfModal();
+                closeVideo();
+            }
+        });
+
+        // Fonctions pour le modal PDF
+        function openPdfModal(pdfPath) {
+            const modal = document.getElementById('pdfModal');
+            const iframe = document.getElementById('pdfFrame');
+            iframe.src = pdfPath;
+            modal.style.display = 'block';
+        }
+
+        function closePdfModal() {
+            const modal = document.getElementById('pdfModal');
+            const iframe = document.getElementById('pdfFrame');
+            modal.style.display = 'none';
+            iframe.src = ''; // Arrêter le chargement du PDF
+        }
+
+        // Fermer les modals en cliquant en dehors
+        window.addEventListener('click', function(event) {
+            const pdfModal = document.getElementById('pdfModal');
+            const videoModal = document.getElementById('videoModal');
+            
+            if (event.target === pdfModal) {
+                closePdfModal();
+            }
+            if (event.target === videoModal) {
+                closeVideo();
+            }
+        });
+
+        // Fonction pour la navigation entre sections
+        function showSection(sectionId) {
+            // Empêcher le comportement par défaut du lien
+            event.preventDefault();
+            
+            // Masquer toutes les sections immédiatement
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+
+            // Afficher la section demandée immédiatement
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                // Forcer le reflow pour s'assurer que display:block est appliqué
+                targetSection.offsetHeight;
+                targetSection.classList.add('active');
+                
+                // Faire défiler vers le haut instantanément
+                window.scrollTo(0, 0);
+            }
+
+            // Mettre à jour la navigation active
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Activer le lien correspondant
+            const activeLink = document.querySelector(`a[onclick*="showSection('${sectionId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+
+    </script>
+
+    <!-- Modal pour agrandir les images -->
+    <div id="imageModal" class="image-modal">
+        <div class="image-modal-content">
+            <span class="image-close" onclick="closeImageModal()">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <div id="imageCaption" class="image-modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Modal pour le PDF -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-content">
+            <span class="pdf-close" onclick="closePdfModal()">&times;</span>
+            <iframe id="pdfFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- Modal pour la vidéo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+</body>
+</html>
